@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Spinner } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
@@ -11,11 +11,19 @@ import { initializeCountries } from "../store/countriesSlice";
 import { addFavorite } from "../store/favoritesSlice";
 
 const Countries = () => {
+  const countriesList = useSelector((state) => state.countries.countries);
+  const [filteredCountries, setFilteredCountries] = useState(countriesList);
   const dispatch = useDispatch();
 
-  const countriesList = useSelector((state) => state.countries.countries);
-
   const loading = useSelector((state) => state.countries.isLoading);
+
+  const filtered = (e) => {
+    let inputValue = e.target.value;
+    const filtered = countriesList.filter((country) =>
+      country.name.official.toLowerCase().includes(inputValue.toLowerCase())
+    );
+    setFilteredCountries(filtered);
+  };
 
   useEffect(() => {
     dispatch(initializeCountries());
@@ -38,8 +46,11 @@ const Countries = () => {
 
   return (
     <Container fluid>
+      <div>
+        <input type="text" onChange={filtered} />
+      </div>
       <Row xs={2} md={3} lg={4} className=" g-3">
-        {countriesList.map((country) => (
+        {filteredCountries.map((country) => (
           <Col key={country.name.official} className="mt-5">
             <Card className="h-100">
               <FavoriteIcon
