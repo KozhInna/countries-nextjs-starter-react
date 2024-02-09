@@ -9,6 +9,7 @@ import Row from "react-bootstrap/Row";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeCountries } from "../store/countriesSlice";
 import { addFavorite } from "../store/favoritesSlice";
+import { Link } from "@mui/material";
 
 const Countries = () => {
   const countriesList = useSelector((state) => state.countries.countries);
@@ -20,7 +21,7 @@ const Countries = () => {
   const filtered = (e) => {
     let inputValue = e.target.value;
     const filtered = countriesList.filter((country) =>
-      country.name.official.toLowerCase().includes(inputValue.toLowerCase())
+      country.name.common.toLowerCase().includes(inputValue.toLowerCase())
     );
     setFilteredCountries(filtered);
   };
@@ -47,7 +48,11 @@ const Countries = () => {
   return (
     <Container fluid>
       <div>
-        <input type="text" onChange={filtered} />
+        <input
+          type="text"
+          placeholder="Search for countries"
+          onChange={filtered}
+        />
       </div>
       <Row xs={2} md={3} lg={4} className=" g-3">
         {filteredCountries.map((country) => (
@@ -57,16 +62,18 @@ const Countries = () => {
                 color="red"
                 onClick={() => dispatch(addFavorite(country))}
               />
-              <Card.Img
-                variant="top"
-                className="rounded h-50"
-                src={`${country.flags.svg}`}
-                style={{
-                  objectFit: "cover",
-                  minHeight: "200px",
-                  maxHeight: "200px",
-                }}
-              />
+              <Link href={`/countries/${country.name.common}`}>
+                <Card.Img
+                  variant="top"
+                  className="rounded h-50"
+                  src={`${country.flags.svg}`}
+                  style={{
+                    objectFit: "cover",
+                    minHeight: "200px",
+                    maxHeight: "200px",
+                  }}
+                />{" "}
+              </Link>
               <Card.Body className="d-flex flex-column">
                 <Card.Title>{country.name.common}</Card.Title>
                 <Card.Subtitle className="mb-5 text-muted">
