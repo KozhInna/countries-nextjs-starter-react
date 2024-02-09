@@ -7,7 +7,15 @@ export const favoritesSlice = createSlice({
   },
   reducers: {
     addFavorite(state, action) {
+      const check = state.favorites.filter((country) =>
+        country.name.common.includes(action.payload.name.common)
+      );
+      if (check.length > 0) {
+        return;
+      }
+
       state.favorites = [...state.favorites, action.payload];
+      console.log(state.favorites);
     },
     clearFavorites(state, action) {
       state.favorites = [];
