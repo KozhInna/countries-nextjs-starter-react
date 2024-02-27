@@ -2,19 +2,13 @@ import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, registerWithEmailAndPassword } from "../auth/firebase";
+import { auth, logInWithEmailAndPassword } from "../auth/firebase";
 
-const Register = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
-
-  const register = () => {
-    if (!name) alert("Please enter name");
-    registerWithEmailAndPassword(name, email, password);
-  };
 
   useEffect(() => {
     if (loading) return;
@@ -23,12 +17,6 @@ const Register = () => {
 
   return (
     <div>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Full Name"
-      />
       <input
         type="text"
         value={email}
@@ -41,13 +29,14 @@ const Register = () => {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
       />
-      <Button onClick={register}>Register</Button>
+      <Button onClick={() => logInWithEmailAndPassword(email, password)}>
+        Login
+      </Button>
       <div>
-        Already have an account?
-        <Link to="/login">Login</Link> now.
+        Need to register for an account? <Link to="/register">Register</Link>
       </div>
     </div>
   );
 };
 
-export { Register };
+export default Login;

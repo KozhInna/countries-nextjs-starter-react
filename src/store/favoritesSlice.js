@@ -7,10 +7,12 @@ export const favoritesSlice = createSlice({
   },
   reducers: {
     addFavorite(state, action) {
-      const check = state.favorites.filter((country) =>
-        country.name.common.includes(action.payload.name.common)
-      );
-      if (check.length > 0) {
+      // searching for duplicates with "some" method
+      if (
+        state.favorites.some(
+          (country) => country.name.common === action.payload.name.common
+        )
+      ) {
         return;
       }
 
