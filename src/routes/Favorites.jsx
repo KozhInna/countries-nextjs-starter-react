@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-
+import "bootstrap-icons/font/bootstrap-icons.css";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -7,6 +7,8 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeCountries } from "../store/countriesSlice";
+import { clearFavorites, removeFavorite } from "../store/favoritesSlice";
+import { Button } from "react-bootstrap";
 
 const Favorites = () => {
   const dispatch = useDispatch();
@@ -17,13 +19,25 @@ const Favorites = () => {
   useEffect(() => {
     dispatch(initializeCountries());
   }, [dispatch]);
-
+  console.log("favorites", favorites);
   return (
     <Container fluid>
+      <Button
+        type="button"
+        className="btn"
+        onClick={() => dispatch(clearFavorites())}
+      >
+        Delete all
+      </Button>
       <Row xs={2} md={3} lg={4} className=" g-3">
         {favorites.map((country) => (
           <Col key={country.name.official} className="mt-5">
             <Card className="h-100">
+              <i
+                className="bi bi-trash"
+                onClick={() => dispatch(removeFavorite(country))}
+              ></i>
+
               <Card.Img
                 variant="top"
                 className="rounded h-50"

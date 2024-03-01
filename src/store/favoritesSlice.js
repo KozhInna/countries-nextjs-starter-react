@@ -22,8 +22,15 @@ export const favoritesSlice = createSlice({
     clearFavorites(state, action) {
       state.favorites = [];
     },
+    removeFavorite(state, action) {
+      const updatedFavorites = state.favorites.filter(
+        (country) => country.name.common !== action.payload.name.common
+      );
+      state.favorites = updatedFavorites;
+    },
   },
 });
 
-export const { addFavorite, clearFavorites } = favoritesSlice.actions;
+export const { addFavorite, clearFavorites, removeFavorite } =
+  favoritesSlice.actions;
 export default favoritesSlice.reducer;
