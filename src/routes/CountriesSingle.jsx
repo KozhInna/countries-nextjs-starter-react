@@ -16,10 +16,12 @@ const CountriesSingle = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const apiKey = import.meta.env.VITE_WEATHER_API;
+
   useEffect(() => {
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${country.capital}&units=metric&appid=87abe1683d94664ff357686aa58f9bc3`
+        `https://api.openweathermap.org/data/2.5/weather?q=${country.capital}&units=metric&appid=${apiKey}`
       )
       .catch((error) => {
         console.log(error);

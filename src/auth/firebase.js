@@ -28,14 +28,6 @@ const auth = getAuth(app);
 // here we get access to the project database
 const db = getFirestore(app);
 
-const logInWithEmailAndPassword = async (email, password) => {
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-  } catch (err) {
-    console.log(err);
-    alert(err.message);
-  }
-};
 const registerWithEmailAndPassword = async (name, email, password) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -52,14 +44,18 @@ const registerWithEmailAndPassword = async (name, email, password) => {
   }
 };
 
-const logout = () => {
-  signOut(auth);
+export const logInWithEmailAndPassword = async (email, password) => {
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (err) {
+    console.log(err);
+    alert(err.message);
+  }
 };
 
-export {
-  auth,
-  db,
-  logInWithEmailAndPassword,
-  logout,
-  registerWithEmailAndPassword,
+export const logout = () => {
+  //signOut(auth);
+  auth.signOut();
 };
+
+export { auth, db, registerWithEmailAndPassword };

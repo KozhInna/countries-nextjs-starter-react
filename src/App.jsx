@@ -29,30 +29,7 @@ const theme = createTheme({
 
 function App() {
   const [user] = useAuthState(auth);
-  // const router = createBrowserRouter([
-  //   {
-  //     path: "/",
-  //     element: <Root />,
-  //     children: [
-  //       {
-  //         path: "/",
-  //         element: <Home />,
-  //       },
-  //       {
-  //         path: "/countries",
-  //         element: <Countries />,
-  //       },
-  //       {
-  //         path: "countries/:single",
-  //         element: <CountriesSingle />,
-  //       },
-  //       {
-  //         path: "/favorites",
-  //         element: <Favorites />,
-  //       },
-  //     ],
-  //   },
-  // ]);
+  console.log(user);
 
   return (
     <Provider store={store}>
@@ -60,10 +37,11 @@ function App() {
         <ThemeProvider theme={theme}>
           <Router>
             <Routes>
-              <Route path="/" element={<Root />}>
+              <Route path="/" element={<Root user={user} />}>
                 <Route index element={<Home />} />
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
+                <Route path="logout" element={<Login />} />
                 <Route
                   path="/countries"
                   element={
@@ -95,14 +73,6 @@ function App() {
       </LocalizationProvider>
     </Provider>
   );
-  //   <Provider store={store}>
-  //     <LocalizationProvider dateAdapter={AdapterDayjs}>
-  //       <ThemeProvider theme={theme}>
-  //         <RouterProvider router={router}></RouterProvider>
-  //       </ThemeProvider>
-  //     </LocalizationProvider>
-  //   </Provider>
-  // );
 }
 
 export default App;
