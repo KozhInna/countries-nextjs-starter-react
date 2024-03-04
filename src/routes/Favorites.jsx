@@ -34,7 +34,7 @@ const Favorites = () => {
           <Col key={country.name.official} className="mt-5">
             <Card className="h-100">
               <i
-                className="bi bi-trash"
+                className="bi bi-trash m-1 p-1"
                 onClick={() => dispatch(removeFavorite(country))}
               ></i>
 

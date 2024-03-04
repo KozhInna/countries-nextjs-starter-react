@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import { Link } from "react-router-dom";
 import { logout } from "../auth/firebase";
 
-const Header = ({ user }) => {
+const Header = ({ user, userName }) => {
   return !user ? (
     <Container fluid>
       <Row>
@@ -50,6 +50,7 @@ const Header = ({ user }) => {
                 <Button onClick={logout}>Logout</Button>
               </Nav>
             </Navbar.Collapse>
+            {`Hi, ${userName}`}
           </Container>
         </Navbar>
       </Row>

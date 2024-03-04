@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Provider } from "react-redux";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { auth } from "./auth/firebase";
+import { auth, getUserData } from "./auth/firebase";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import Countries from "./routes/Countries";
 import CountriesSingle from "./routes/CountriesSingle";
@@ -15,6 +15,7 @@ import Login from "./routes/Login";
 import { Register } from "./routes/Register";
 import Root from "./routes/Root";
 import store from "./store/store";
+import { useEffect, useState } from "react";
 
 const theme = createTheme({
   palette: {
@@ -29,7 +30,19 @@ const theme = createTheme({
 
 function App() {
   const [user] = useAuthState(auth);
-  console.log(user);
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    setUserName("");
+    const getUserName = async () => {
+      if (user) {
+        const uid = user.uid;
+        const userData = await getUserData(uid);
+        return setUserName(userData);
+      }
+    };
+    getUserName();
+  }, [user]);
 
   return (
     <Provider store={store}>
@@ -37,7 +50,10 @@ function App() {
         <ThemeProvider theme={theme}>
           <Router>
             <Routes>
-              <Route path="/" element={<Root user={user} />}>
+              <Route
+                path="/"
+                element={<Root user={user} userName={userName} />}
+              >
                 <Route index element={<Home />} />
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />

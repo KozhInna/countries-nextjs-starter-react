@@ -3,9 +3,17 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut,
 } from "firebase/auth";
-import { addDoc, getFirestore, collection } from "firebase/firestore";
+
+import {
+  addDoc,
+  getFirestore,
+  collection,
+  where,
+  query,
+  getDocs,
+  getDoc,
+} from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -54,8 +62,23 @@ export const logInWithEmailAndPassword = async (email, password) => {
 };
 
 export const logout = () => {
-  //signOut(auth);
+  //auth.signOut is version 8
+  //signOut(auth) is version 9
+
   auth.signOut();
+};
+
+export const getUserData = async (uid) => {
+  const colletionRef = collection(db, "users");
+  const q = query(colletionRef, where("uid", "==", `${uid}`));
+
+  const querySnapshot = await getDocs(q);
+  let userName = null;
+  querySnapshot.forEach((doc) => {
+    //console.log("res", doc.id, " => ", doc.data().name);
+    userName = doc.data().name;
+  });
+  return userName;
 };
 
 export { auth, db, registerWithEmailAndPassword };

@@ -9,6 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
+  user && console.log("user", user.uid);
 
   useEffect(() => {
     if (loading) return;
@@ -32,6 +33,7 @@ const Login = () => {
       <Button onClick={() => logInWithEmailAndPassword(email, password)}>
         Login
       </Button>
+
       <div>
         Need to register for an account? <Link to="/register">Register</Link>
       </div>
