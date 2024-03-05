@@ -56,6 +56,7 @@ const CountriesSingle = () => {
           <Image
             thumbnail
             src={`https://source.unsplash.com/featured/1600x900?${country.name.common}`}
+            alt={`picture of ${country.name.common}`}
           />
         </Col>
         <Col>

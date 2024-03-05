@@ -58,30 +58,14 @@ function App() {
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
                 <Route path="logout" element={<Login />} />
-                <Route
-                  path="/countries"
-                  element={
-                    <ProtectedRoute>
-                      <Countries />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/favorites"
-                  element={
-                    <ProtectedRoute>
-                      <Favorites />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/countries/:single"
-                  element={
-                    <ProtectedRoute>
-                      <CountriesSingle />
-                    </ProtectedRoute>
-                  }
-                />
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/countries" element={<Countries />} />
+                  <Route path="/favorites" element={<Favorites />} />
+                  <Route
+                    path="/countries/:single"
+                    element={<CountriesSingle />}
+                  />
+                </Route>
               </Route>
             </Routes>
           </Router>
