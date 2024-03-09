@@ -3,11 +3,15 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { Button, Col, Container, Image, Row, Spinner } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 const CountriesSingle = () => {
+  const countriesList = useSelector((state) => state.countries.countries);
   const location = useLocation();
   const navigate = useNavigate();
   const country = location.state.country;
+  const borders = country.borders;
+
   console.log("location", location);
   console.log("country", country);
   console.log("navigate", navigate);
@@ -15,6 +19,7 @@ const CountriesSingle = () => {
   const [weather, setWeather] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [borderCountries, setBorderCountries] = useState([]);
 
   const apiKey = import.meta.env.VITE_WEATHER_API;
 
@@ -31,6 +36,19 @@ const CountriesSingle = () => {
         setWeather(res.data);
         setLoading(false);
       });
+  }, [country.capital]);
+
+  useEffect(() => {
+    if (borders) {
+      setBorderCountries([]);
+      countriesList.forEach((c) => {
+        for (let i = 0; i < borders.length; i++) {
+          if (borders[i] === c.fifa) {
+            setBorderCountries((prevState) => [...prevState, c.name.common]);
+          }
+        }
+      });
+    }
   }, [country.capital]);
 
   console.log("weather", weather);
@@ -72,6 +90,20 @@ const CountriesSingle = () => {
                 src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
                 alt={weather.weather[0].description}
               />
+            </div>
+          )}
+
+          {borders && (
+            <div>
+              <h3>Borders</h3>
+              {borderCountries.map((i, index) => (
+                <div
+                  className="d-inline-block m-1 p-2 bg-primary text-white rounded"
+                  key={index}
+                >
+                  {i}
+                </div>
+              ))}
             </div>
           )}
         </Col>

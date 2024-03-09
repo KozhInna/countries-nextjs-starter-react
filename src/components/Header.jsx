@@ -50,7 +50,7 @@ const Header = ({ user, userName }) => {
                 <Button onClick={logout}>Logout</Button>
               </Nav>
             </Navbar.Collapse>
-            {`Hi, ${userName}`}
+            {userName && `Welcome, ${userName}!`}
           </Container>
         </Navbar>
       </Row>
