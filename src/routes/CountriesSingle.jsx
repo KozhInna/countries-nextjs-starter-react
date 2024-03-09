@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { Button, Col, Container, Image, Row, Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
@@ -44,14 +44,12 @@ const CountriesSingle = () => {
       countriesList.forEach((c) => {
         for (let i = 0; i < borders.length; i++) {
           if (borders[i] === c.fifa) {
-            setBorderCountries((prevState) => [...prevState, c.name.common]);
+            setBorderCountries((prevState) => [...prevState, c]);
           }
         }
       });
     }
   }, [country.capital]);
-
-  console.log("weather", weather);
 
   if (loading) {
     return (
@@ -96,13 +94,16 @@ const CountriesSingle = () => {
           {borders && (
             <div>
               <h3>Borders</h3>
-              {borderCountries.map((i, index) => (
-                <div
-                  className="d-inline-block m-1 p-2 bg-primary text-white rounded"
+              {borderCountries.map((country, index) => (
+                <Link
+                  to={`/countries/${country.name.common}`}
+                  state={{ country: country }}
                   key={index}
                 >
-                  {i}
-                </div>
+                  <div className="d-inline-block m-1 p-2 bg-primary text-white rounded">
+                    {country.name.common}
+                  </div>
+                </Link>
               ))}
             </div>
           )}
