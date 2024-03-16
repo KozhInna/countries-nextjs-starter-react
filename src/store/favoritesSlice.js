@@ -1,4 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {
+  addFavoriteToFirebase,
+  auth,
+  clearFavoritesFromFirebase,
+  removeFavoriteFromFirebase,
+} from "../auth/firebase";
 
 export const favoritesSlice = createSlice({
   name: "favorites",
@@ -6,31 +12,42 @@ export const favoritesSlice = createSlice({
     favorites: [],
   },
   reducers: {
+    getFavorites(state, action) {
+      state.favorites = action.payload;
+    },
     addFavorite(state, action) {
-      // searching for duplicates with "some" method
-      if (
-        state.favorites.some(
-          (country) => country.name.common === action.payload.name.common
-        )
-      ) {
+      console.log(state.favorites);
+      console.log(action.payload);
+      if (state.favorites.some((country) => country === action.payload)) {
         return;
       }
 
       state.favorites = [...state.favorites, action.payload];
       console.log(state.favorites);
+      const user = auth.currentUser;
+      if (user) addFavoriteToFirebase(user.uid, action.payload);
     },
+
     clearFavorites(state, action) {
       state.favorites = [];
+      const user = auth.currentUser;
+      if (user) {
+        clearFavoritesFromFirebase(user.uid);
+      }
     },
     removeFavorite(state, action) {
       const updatedFavorites = state.favorites.filter(
-        (country) => country.name.common !== action.payload.name.common
+        (country) => country !== action.payload
       );
       state.favorites = updatedFavorites;
+      const user = auth.currentUser;
+      if (user) {
+        removeFavoriteFromFirebase(user.uid, action.payload);
+      }
     },
   },
 });
 
-export const { addFavorite, clearFavorites, removeFavorite } =
+export const { getFavorites, addFavorite, clearFavorites, removeFavorite } =
   favoritesSlice.actions;
 export default favoritesSlice.reducer;

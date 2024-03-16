@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import "bootstrap-icons/font/bootstrap-icons.css";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+//import "bootstrap-icons/font/bootstrap-icons.css";
 import { Form, Spinner } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
@@ -9,17 +11,20 @@ import Row from "react-bootstrap/Row";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { initializeCountries } from "../store/countriesSlice";
-import { addFavorite } from "../store/favoritesSlice";
+import { addFavorite, removeFavorite } from "../store/favoritesSlice";
+import { getFavoritesFromSource } from "../auth/firebase";
 
 const Countries = () => {
   const dispatch = useDispatch();
 
   const countriesList = useSelector((state) => state.countries.countries);
+  const favorites = useSelector((state) => state.favorites.favorites);
   const loading = useSelector((state) => state.countries.isLoading);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
     dispatch(initializeCountries());
+    dispatch(getFavoritesFromSource());
   }, [dispatch]);
 
   if (loading) {
@@ -61,10 +66,21 @@ const Countries = () => {
           .map((country) => (
             <Col className="mt-5" key={country.name.common}>
               <Card className="h-100">
-                <i
-                  className="bi bi-heart-fill text-danger m-1 p-1"
-                  onClick={() => dispatch(addFavorite(country))}
-                ></i>
+                {favorites.some(
+                  (favorite) => favorite === country.name?.common
+                ) ? (
+                  <FavoriteIcon
+                    sx={{ color: "red" }}
+                    onClick={() =>
+                      dispatch(removeFavorite(country.name.common))
+                    }
+                  />
+                ) : (
+                  <FavoriteBorderIcon
+                    sx={{ color: "red" }}
+                    onClick={() => dispatch(addFavorite(country.name.common))}
+                  />
+                )}
 
                 <Link
                   to={`/countries/${country.name.common}`}
