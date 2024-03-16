@@ -2,10 +2,22 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import { Button, Col, Container, Image, Row, Spinner } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Image,
+  Row,
+  Spinner,
+} from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { addFavorite, removeFavorite } from "../store/favoritesSlice";
 
 const CountriesSingle = () => {
+  const dispatch = useDispatch();
   const countriesList = useSelector((state) => state.countries.countries);
   const location = useLocation();
   const navigate = useNavigate();
@@ -20,6 +32,7 @@ const CountriesSingle = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [borderCountries, setBorderCountries] = useState([]);
+  const favorites = useSelector((state) => state.favorites.favorites);
 
   const apiKey = import.meta.env.VITE_WEATHER_API;
 
@@ -69,11 +82,25 @@ const CountriesSingle = () => {
     <Container>
       <Row className="m-5">
         <Col>
-          <Image
-            thumbnail
-            src={`https://source.unsplash.com/featured/1600x900?${country.name.common}`}
-            alt={`picture of ${country.name.common}`}
-          />
+          <Card className="img-thumbnail">
+            {favorites.some((favorite) => favorite === country.name.common) ? (
+              <FavoriteIcon
+                sx={{ color: "red" }}
+                onClick={() => dispatch(removeFavorite(country.name.common))}
+              />
+            ) : (
+              <FavoriteBorderIcon
+                sx={{ color: "red" }}
+                onClick={() => dispatch(addFavorite(country.name.common))}
+              />
+            )}
+
+            <Image
+              className="img-fluid"
+              src={`https://source.unsplash.com/featured/1600x900?${country.name.common}`}
+              alt={`picture of ${country.name.common}`}
+            />
+          </Card>
         </Col>
         <Col>
           <h2 className="display-4">{country.name.common}</h2>
