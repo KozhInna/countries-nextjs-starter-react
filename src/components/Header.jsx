@@ -4,9 +4,33 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Row from "react-bootstrap/Row";
 import { Link } from "react-router-dom";
-import { logout } from "../auth/firebase";
+import { auth, getUserData, logout } from "../auth/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useEffect, useState } from "react";
 
-const Header = ({ user, userName }) => {
+const Header = () => {
+  const [user] = useAuthState(auth);
+  console.log("user", user);
+  const [userName, setUserName] = useState("");
+  console.log("name", userName);
+
+  useEffect(() => {
+    setUserName("");
+    const getUserName = async () => {
+      if (user) {
+        const uid = user.uid;
+        const userData = await getUserData(uid);
+        console.log("userData", userData);
+        if (userData) {
+          setUserName(userData);
+        } else {
+          setUserName("guest");
+        }
+      }
+    };
+    getUserName();
+  }, [user]);
+
   return !user ? (
     <Container fluid>
       <Row>
