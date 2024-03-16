@@ -1,5 +1,7 @@
 import { useEffect } from "react";
-import "bootstrap-icons/font/bootstrap-icons.css";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+//import "bootstrap-icons/font/bootstrap-icons.css";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -7,19 +9,34 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeCountries } from "../store/countriesSlice";
-import { clearFavorites, removeFavorite } from "../store/favoritesSlice";
+import {
+  addFavorite,
+  clearFavorites,
+  removeFavorite,
+} from "../store/favoritesSlice";
 import { Button } from "react-bootstrap";
+import { getFavoritesFromSource } from "../auth/firebase";
 
 const Favorites = () => {
   const dispatch = useDispatch();
 
   const favorites = useSelector((state) => state.favorites.favorites);
+  let countriesList = useSelector((state) => state.countries.countries);
+
+  if (favorites.length > 0) {
+    countriesList = countriesList.filter((country) =>
+      favorites.includes(country.name.common)
+    );
+  } else {
+    countriesList = [];
+  }
 
   // TODO: Implement logic to retrieve favourites later.
   useEffect(() => {
     dispatch(initializeCountries());
+    dispatch(getFavoritesFromSource());
   }, [dispatch]);
-  console.log("favorites", favorites);
+
   return (
     <Container fluid>
       <Button
@@ -30,13 +47,22 @@ const Favorites = () => {
         Delete all
       </Button>
       <Row xs={2} md={3} lg={4} className=" g-3">
-        {favorites.map((country) => (
+        {countriesList.map((country) => (
           <Col key={country.name.official} className="mt-5">
             <Card className="h-100">
-              <i
-                className="bi bi-trash m-1 p-1"
-                onClick={() => dispatch(removeFavorite(country))}
-              ></i>
+              {favorites.some(
+                (favorite) => favorite === country.name?.common
+              ) ? (
+                <FavoriteIcon
+                  sx={{ color: "red" }}
+                  onClick={() => dispatch(removeFavorite(country.name.common))}
+                />
+              ) : (
+                <FavoriteBorderIcon
+                  sx={{ color: "red" }}
+                  onClick={() => dispatch(addFavorite(country.name.common))}
+                />
+              )}
 
               <Card.Img
                 variant="top"
