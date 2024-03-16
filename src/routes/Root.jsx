@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 
-function Root({ user, userName }) {
+function Root() {
   return (
     <div>
-      <Header user={user} userName={userName} />
+      <Header />
       <Outlet />
     </div>
   );
