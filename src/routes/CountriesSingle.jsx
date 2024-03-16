@@ -80,7 +80,7 @@ const CountriesSingle = () => {
   }
   return (
     <Container>
-      <Row className="m-5">
+      <Row className="mt-5 mb-5">
         <Col>
           <Card className="img-thumbnail">
             {favorites.some((favorite) => favorite === country.name.common) ? (

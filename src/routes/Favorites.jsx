@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-//import "bootstrap-icons/font/bootstrap-icons.css";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -16,6 +15,7 @@ import {
 } from "../store/favoritesSlice";
 import { Button } from "react-bootstrap";
 import { getFavoritesFromSource } from "../auth/firebase";
+import { Link } from "react-router-dom";
 
 const Favorites = () => {
   const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const Favorites = () => {
     <Container fluid>
       <Button
         type="button"
-        className="btn"
+        className="btn mt-3"
         onClick={() => dispatch(clearFavorites())}
       >
         Delete all
@@ -63,17 +63,22 @@ const Favorites = () => {
                   onClick={() => dispatch(addFavorite(country.name.common))}
                 />
               )}
+              <Link
+                to={`/countries/${country.name.common}`}
+                state={{ country: country }}
+              >
+                <Card.Img
+                  variant="top"
+                  className="rounded h-50"
+                  src={country.flags.svg}
+                  style={{
+                    objectFit: "cover",
+                    minHeight: "200px",
+                    maxHeight: "200px",
+                  }}
+                />
+              </Link>
 
-              <Card.Img
-                variant="top"
-                className="rounded h-50"
-                src={country.flags.svg}
-                style={{
-                  objectFit: "cover",
-                  minHeight: "200px",
-                  maxHeight: "200px",
-                }}
-              />
               <Card.Body className="d-flex flex-column">
                 <Card.Title>{country.name.common}</Card.Title>
                 <Card.Subtitle className="mb-5 text-muted">
@@ -94,6 +99,7 @@ const Favorites = () => {
                       .join(", ")}
                   </ListGroup.Item>
                   <ListGroup.Item>
+                    <i className="bi bi-people me-2"></i>
                     {country.population.toLocaleString()}
                   </ListGroup.Item>
                 </ListGroup>
