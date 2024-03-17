@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { addFavorite, removeFavorite } from "../store/favoritesSlice";
+import GetMap from "../components/Map";
 
 const CountriesSingle = () => {
   const dispatch = useDispatch();
@@ -138,11 +139,16 @@ const CountriesSingle = () => {
       </Row>
       <Row>
         <Col>
-          <Button variant="light" onClick={() => navigate("/countries")}>
+          <Button
+            className="mb-3"
+            variant="light"
+            onClick={() => navigate("/countries")}
+          >
             Back to Countries
           </Button>
         </Col>
       </Row>
+      <GetMap />
     </Container>
   );
 };
