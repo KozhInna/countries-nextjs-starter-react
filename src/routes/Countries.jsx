@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-//import "bootstrap-icons/font/bootstrap-icons.css";
+
 import { Form, Spinner } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
@@ -45,7 +45,7 @@ const Countries = () => {
   return (
     <Container fluid>
       <Row>
-        <Col className="text-center m-5">
+        <Col className="text-center mt-4 mb-4">
           <Form>
             <Form.Control
               style={{ width: "18rem" }}
@@ -58,13 +58,13 @@ const Countries = () => {
           </Form>
         </Col>
       </Row>
-      <Row xs={2} md={3} lg={4} className=" g-3">
+      <Row xs={2} md={3} lg={5} className=" g-3">
         {countriesList
           .filter((c) => {
             return c.name.common.toLowerCase().includes(search.toLowerCase());
           })
           .map((country) => (
-            <Col className="mt-5" key={country.name.common}>
+            <Col className="mt-4" key={country.name.common}>
               <Card className="h-100">
                 {favorites.some(
                   (favorite) => favorite === country.name?.common

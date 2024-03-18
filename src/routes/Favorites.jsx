@@ -41,12 +41,13 @@ const Favorites = () => {
     <Container fluid>
       <Button
         type="button"
-        className="btn mt-3"
+        className="mt-4 shadow border"
+        variant="light"
         onClick={() => dispatch(clearFavorites())}
       >
         Delete all
       </Button>
-      <Row xs={2} md={3} lg={4} className=" g-3">
+      <Row xs={2} md={3} lg={5} className=" g-3">
         {countriesList.map((country) => (
           <Col key={country.name.official} className="mt-5">
             <Card className="h-100">
