@@ -1,4 +1,7 @@
 .weatherBox {
   background-color: rgb(249, 249, 249);
 }
-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+.svg_icon {
+  transform: scale(1.8);
+}

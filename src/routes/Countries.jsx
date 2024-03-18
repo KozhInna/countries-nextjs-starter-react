@@ -70,6 +70,7 @@ const Countries = () => {
                   (favorite) => favorite === country.name?.common
                 ) ? (
                   <FavoriteIcon
+                    className="m-1"
                     sx={{ color: "red" }}
                     onClick={() =>
                       dispatch(removeFavorite(country.name.common))
@@ -77,6 +78,7 @@ const Countries = () => {
                   />
                 ) : (
                   <FavoriteBorderIcon
+                    className="m-1"
                     sx={{ color: "red" }}
                     onClick={() => dispatch(addFavorite(country.name.common))}
                   />

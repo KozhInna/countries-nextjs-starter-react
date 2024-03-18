@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { auth, getUserData, logout } from "../auth/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
+import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 
 const Header = () => {
   const [user] = useAuthState(auth);
@@ -40,7 +41,9 @@ const Header = () => {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav>
                 <Link to="/">
-                  <Button variant="contained">Home</Button>
+                  <Button variant="contained">
+                    <LanguageOutlinedIcon className="svg_icon" />
+                  </Button>
                 </Link>
                 <Link to="/register">
                   <Button variant="contained">Register</Button>
@@ -63,7 +66,9 @@ const Header = () => {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav>
                 <Link to="/">
-                  <Button variant="contained">Home</Button>
+                  <Button variant="contained">
+                    <LanguageOutlinedIcon className="svg_icon" />
+                  </Button>
                 </Link>
                 <Link to="/countries">
                   <Button variant="contained">Countries</Button>
