@@ -100,7 +100,7 @@ const CountriesSingle = () => {
   return (
     <Container>
       <div className="bigbox">
-        <div className="d-lg-flex mt-2">
+        <div className="d-lg-flex mt-4">
           <div className="d-flex flex-column me-2 justify-content-between">
             <Card className="img-thumbnail shadow">
               <div className="pt-1">
@@ -155,14 +155,13 @@ const CountriesSingle = () => {
                       </p>
                     </div>
                   </div>
-                  <div className=" ">
+                  <div>
                     <div>
                       <div className=" d-flex flex-column align-items-center">
                         <img
                           src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
                           alt={weatherDescription}
                           style={{ maxHeight: "70px" }}
-                          className=" "
                         />
                       </div>
 
@@ -198,7 +197,7 @@ const CountriesSingle = () => {
                     >
                       <button
                         type="button"
-                        className="btn btn-dark btn-sm m-1 rounded-pill" /* className="d-inline-block m-1 p-1 bg-secondary text-white rounded" */
+                        className="btn btn-dark btn-sm m-1 rounded-pill"
                       >
                         {country.name.common}
                       </button>
