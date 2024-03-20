@@ -35,7 +35,7 @@ const Header = () => {
   return !user ? (
     <Container fluid>
       <Row>
-        <Navbar bg="light" variant="light">
+        <Navbar style={{ backgroundColor: "#e3f2fd" }} className="shadow">
           <Container className="justify-content-end">
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
@@ -60,7 +60,7 @@ const Header = () => {
   ) : (
     <Container fluid>
       <Row>
-        <Navbar bg="light" variant="light">
+        <Navbar style={{ backgroundColor: "#e3f2fd" }} className="shadow">
           <Container className="justify-content-end">
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
@@ -76,7 +76,9 @@ const Header = () => {
                 <Link to="/favorites">
                   <Button variant="contained">Favorites</Button>
                 </Link>
-                <Button onClick={logout}>Logout</Button>
+                <Button className="rounded-pill" onClick={logout}>
+                  Logout
+                </Button>
               </Nav>
             </Navbar.Collapse>
             {userName && `Welcome, ${userName}!`}

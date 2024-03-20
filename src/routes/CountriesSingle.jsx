@@ -1,16 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
-import {
-  Button,
-  Card,
-  Col,
-  Container,
-  Image,
-  Row,
-  Spinner,
-} from "react-bootstrap";
+import { Button, Card, Col, Container, Image, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -107,123 +98,127 @@ const CountriesSingle = () => {
     );
   }
   return (
-    <Container className=" ">
-      <div className="d-lg-flex mt-2  ">
-        <div className="d-flex flex-column me-2 justify-content-between">
-          <Card className="img-thumbnail shadow">
-            <div className="pt-1">
-              {favorites.some(
-                (favorite) => favorite === country.name.common
-              ) ? (
-                <FavoriteIcon
-                  sx={{ color: "red" }}
-                  onClick={() => dispatch(removeFavorite(country.name.common))}
-                />
-              ) : (
-                <FavoriteBorderIcon
-                  sx={{ color: "red" }}
-                  onClick={() => dispatch(addFavorite(country.name.common))}
-                />
+    <Container>
+      <div className="bigbox">
+        <div className="d-lg-flex mt-2">
+          <div className="d-flex flex-column me-2 justify-content-between">
+            <Card className="img-thumbnail shadow">
+              <div className="pt-1">
+                {favorites.some(
+                  (favorite) => favorite === country.name.common
+                ) ? (
+                  <FavoriteIcon
+                    sx={{ color: "red" }}
+                    onClick={() =>
+                      dispatch(removeFavorite(country.name.common))
+                    }
+                  />
+                ) : (
+                  <FavoriteBorderIcon
+                    sx={{ color: "red" }}
+                    onClick={() => dispatch(addFavorite(country.name.common))}
+                  />
+                )}
+              </div>
+
+              <Image
+                className="img-fluid mt-2"
+                style={{ maxHeight: "300px" }}
+                src={`https://source.unsplash.com/featured/1600x900?${country.name.common}`}
+                alt={`picture of ${country.name.common}`}
+              />
+            </Card>
+
+            <Card className="p-2 weatherBox mt-2  shadow">
+              <div className="d-flex justify-content-between">
+                <div>
+                  {" "}
+                  <i className="bi bi-geo-alt me-2 h4"></i>
+                  <h4 className="d-inline-block">
+                    {country.capital}, {country.altSpellings[0]} {country.flag}
+                  </h4>
+                </div>
+
+                <h6>
+                  {curDayOfWeek}, {dayMonth}
+                </h6>
+              </div>
+
+              {!error && weather && (
+                <div className="d-lg-flex justify-content-between">
+                  <div className=" align-self-center">
+                    <h2>{weather.main.temp} ℃</h2>
+                    <div>
+                      <p>
+                        Feels like: {weather.main.feels_like}℃.{" "}
+                        {weatherDescription}.
+                      </p>
+                    </div>
+                  </div>
+                  <div className=" ">
+                    <div>
+                      <div className=" d-flex flex-column align-items-center">
+                        <img
+                          src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+                          alt={weatherDescription}
+                          style={{ maxHeight: "70px" }}
+                          className=" "
+                        />
+                      </div>
+
+                      <div className="d-flex">
+                        <div className=" p-2 d-flex flex-column align-items-center">
+                          <WaterDropOutlinedIcon />
+
+                          <div className="">{weather.main.humidity}％</div>
+                        </div>
+                        <div className=" p-2 d-flex flex-column align-items-center">
+                          <AirOutlinedIcon />
+                          <div className="">{weather.wind.speed}km/h</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               )}
-            </div>
+            </Card>
+          </div>
 
-            <Image
-              className="img-fluid mt-2"
-              style={{ maxHeight: "300px" }}
-              src={`https://source.unsplash.com/featured/1600x900?${country.name.common}`}
-              alt={`picture of ${country.name.common}`}
-            />
-          </Card>
-
-          <Card className="p-2 weatherBox mt-2  shadow">
-            <div className="d-flex justify-content-between">
-              <div>
-                {" "}
-                <i className="bi bi-geo-alt me-2 h4"></i>
-                <h4 className="d-inline-block">
-                  {country.capital}, {country.altSpellings[0]} {country.flag}
-                </h4>
-              </div>
-
-              <h6>
-                {curDayOfWeek}, {dayMonth}
-              </h6>
-            </div>
-
-            {!error && weather && (
-              <div className="d-lg-flex justify-content-between">
-                <div className=" align-self-center">
-                  <h2>{weather.main.temp} ℃</h2>
-                  <div>
-                    <p>
-                      Feels like: {weather.main.feels_like}℃.{" "}
-                      {weatherDescription}.
-                    </p>
-                  </div>
+          <Col>
+            <Card className="img-thumbnail shadow">
+              {borders && (
+                <div>
+                  <i className="bi bi-pin-map-fill me-2 h6"></i>
+                  <p className="d-inline-block h6">Neighboring countries: </p>
+                  {borderCountries.map((country, index) => (
+                    <Link
+                      to={`/countries/${country.name.common}`}
+                      state={{ country: country }}
+                      key={index}
+                    >
+                      <button
+                        type="button"
+                        className="btn btn-dark btn-sm m-1 rounded-pill" /* className="d-inline-block m-1 p-1 bg-secondary text-white rounded" */
+                      >
+                        {country.name.common}
+                      </button>
+                    </Link>
+                  ))}
                 </div>
-                <div className=" ">
-                  <div>
-                    <div className=" d-flex flex-column align-items-center">
-                      <img
-                        src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-                        alt={weatherDescription}
-                        style={{ maxHeight: "70px" }}
-                        className=" "
-                      />
-                    </div>
-
-                    <div className="d-flex">
-                      <div className=" p-2 d-flex flex-column align-items-center">
-                        <WaterDropOutlinedIcon />
-
-                        <div className="">{weather.main.humidity}％</div>
-                      </div>
-                      <div className=" p-2 d-flex flex-column align-items-center">
-                        <AirOutlinedIcon />
-                        <div className="">{weather.wind.speed}km/h</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </Card>
+              )}
+              <GetMap />
+            </Card>
+          </Col>
         </div>
 
-        <Col>
-          <Card className="img-thumbnail shadow">
-            {borders && (
-              <div>
-                <i className="bi bi-pin-map-fill me-2 h6"></i>
-                <p className="d-inline-block h6">Neighboring countries: </p>
-                {borderCountries.map((country, index) => (
-                  <Link
-                    to={`/countries/${country.name.common}`}
-                    state={{ country: country }}
-                    key={index}
-                  >
-                    <button
-                      type="button"
-                      className="btn btn-secondary btn-sm m-1 rounded" /* className="d-inline-block m-1 p-1 bg-secondary text-white rounded" */
-                    >
-                      {country.name.common}
-                    </button>
-                  </Link>
-                ))}
-              </div>
-            )}
-            <GetMap />
-          </Card>
-        </Col>
+        <Button
+          className="mb-3 mt-4 shadow border rounded-pill"
+          variant="light"
+          onClick={() => navigate("/countries")}
+        >
+          Back to Countries
+        </Button>
       </div>
-
-      <Button
-        className="mb-3 mt-4 shadow border"
-        variant="light"
-        onClick={() => navigate("/countries")}
-      >
-        Back to Countries
-      </Button>
     </Container>
   );
 };

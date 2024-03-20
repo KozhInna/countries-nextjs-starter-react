@@ -5,3 +5,36 @@
 .svg_icon {
   transform: scale(1.8);
 }
+.main-box {
+  display: flex;
+  height: 400px;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+}
+.back-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 55px);
+  border: 1px solid red;
+  background-size: cover;
+  background-position: center;
+}
+.main-box input {
+  font-family: inherit;
+  border: 2px solid rgb(173, 172, 172);
+}
+
+.bigbox {
+  min-height: calc(100vh - 55px);
+  /*  border: 1px solid red; */
+}
+#root {
+  background-image: linear-gradient(
+    to bottom right,
+    rgba(245, 227, 222, 0.7),
+    rgba(214, 176, 176, 0.5)
+  );
+}

@@ -22,29 +22,43 @@ const Register = () => {
   }, [user, loading, navigate]);
 
   return (
-    <div>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Full Name"
-      />
-      <input
-        type="text"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      />
-      <Button onClick={register}>Register</Button>
-      <div>
-        Already have an account?
-        <Link to="/login">Login</Link> now.
+    <div className="back-img">
+      <div className="main-box shadow">
+        <div className="blur-box">
+          <div
+            className="d-flex flex-column gap-2"
+            style={{ maxWidth: "200px" }}
+          >
+            <input
+              className="rounded-pill p-2"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Full Name"
+            />
+            <input
+              className="rounded-pill p-2"
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+            />
+            <input
+              className="rounded-pill p-2"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+            />
+            <Button className="rounded-pill" onClick={register}>
+              Register
+            </Button>
+            <div>
+              Already have an account?
+              <Link to="/login">Login</Link> now.
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -17,25 +17,44 @@ const Login = () => {
   }, [user, loading, navigate]);
 
   return (
-    <div>
-      <input
-        type="text"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      />
-      <Button onClick={() => logInWithEmailAndPassword(email, password)}>
-        Login
-      </Button>
+    <div className="back-img">
+      <div className="main-box shadow">
+        <div className="blur-box">
+          <div
+            className="d-flex flex-column gap-2"
+            style={{ maxWidth: "200px" }}
+          >
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              className="rounded-pill p-2"
+            />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              className="rounded-pill p-2"
+            />
+            <div>
+              For test purposes you can use e-mail: guest@test.com password:
+              test123
+            </div>
+            <Button
+              className="rounded-pill"
+              onClick={() => logInWithEmailAndPassword(email, password)}
+            >
+              Login
+            </Button>
 
-      <div>
-        Need to register for an account? <Link to="/register">Register</Link>
+            <div>
+              Need to register for an account?{" "}
+              <Link to="/register">Register</Link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
