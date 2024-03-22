@@ -3,7 +3,7 @@ const Home = () => {
     <div className="d-lg-flex home">
       <div className="align-self-center d-flex flex-column align-items-center justify-content-center home  home-intro">
         <h1>Countries app</h1>
-        <p>This React application allows you to discovery the world.</p>
+        <p>This React application allows you to discover the world.</p>
         <h3>Technologies</h3>
         <ul className="d-flex flex-column justify-content-start">
           <li>React</li>
@@ -24,14 +24,31 @@ const Home = () => {
         </ul>
       </div>
       <div className="container rightBox">
-        <div className="photo1 photoHome"></div>
-        <div className="photo2 photoHome"></div>
-        <div className="photo3 photoHome"></div>
-        <div className="photo4 photoHome"></div>
-        <div className="photo5 photoHome"></div>
-        <div className="photo6 photoHome"></div>
-        <div className="photo7 photoHome"></div>
-        <div className="photo8 photoHome"></div>
+        <div className="photo1 photoHome">
+          <p className="img-description">Great Britain, London</p>
+        </div>
+        <div className="photo2 photoHome">
+          <p className="img-description">Finland, Helsinki</p>
+        </div>
+        <div className="photo3 photoHome">
+          <p className="img-description">Peru, Lima</p>
+        </div>
+        <div className="photo4 photoHome">
+          <p className="img-description">France, Paris</p>
+        </div>
+        <div className="photo5 photoHome">
+          <p className="img-description"> Korea, Seoul</p>
+        </div>
+
+        <div className="photo6 photoHome">
+          <p className="img-description">Italy, Rome</p>
+        </div>
+        <div className="photo7 photoHome">
+          <p className="img-description">United States, New York</p>
+        </div>
+        <div className="photo8 photoHome">
+          <p className="img-description">Australia, Canberra</p>
+        </div>
       </div>
     </div>
   );
