@@ -27,8 +27,9 @@ const Register = () => {
         <div className="blur-box">
           <div
             className="d-flex flex-column gap-2"
-            style={{ maxWidth: "200px" }}
+            style={{ maxWidth: "250px" }}
           >
+            <h1 style={{ textAlign: "center" }}>Register</h1>
             <input
               className="rounded-pill p-2"
               type="text"
@@ -50,12 +51,15 @@ const Register = () => {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
             />
-            <Button className="rounded-pill" onClick={register}>
+            <Button className="rounded-pill mt-3" onClick={register}>
               Register
             </Button>
             <div>
-              Already have an account?
-              <Link to="/login">Login</Link> now.
+              Already have an account?{" "}
+              <Link to="/login">
+                <strong>Login</strong>{" "}
+              </Link>{" "}
+              now.
             </div>
           </div>
         </div>

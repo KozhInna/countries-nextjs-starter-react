@@ -24,3 +24,7 @@ Built with:
 ## Screenshot
 
 ![Example screenshot](./public/Screenshot.png)
+
+### **Check it out!**
+
+[Country app](https://prismatic-truffle-4fe353.netlify.app)

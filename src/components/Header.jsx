@@ -46,10 +46,14 @@ const Header = () => {
                   </Button>
                 </Link>
                 <Link to="/register">
-                  <Button variant="contained">Register</Button>
+                  <Button className="navBtn rounded-pill" variant="contained">
+                    Register
+                  </Button>
                 </Link>
                 <Link to="/login">
-                  <Button variant="contained">Login</Button>
+                  <Button className="navBtn rounded-pill" variant="contained">
+                    Login
+                  </Button>
                 </Link>
               </Nav>
             </Navbar.Collapse>
@@ -60,7 +64,14 @@ const Header = () => {
   ) : (
     <Container fluid>
       <Row>
-        <Navbar style={{ backgroundColor: "#e3f2fd" }} className="shadow">
+        <Navbar
+          style={{
+            backgroundColor: "#e3f2fd",
+            fontSize: "20px",
+            fontWeight: "500",
+          }}
+          className="shadow"
+        >
           <Container className="justify-content-end">
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
@@ -71,12 +82,16 @@ const Header = () => {
                   </Button>
                 </Link>
                 <Link to="/countries">
-                  <Button variant="contained">Countries</Button>
+                  <Button className="navBtn rounded-pill" variant="contained">
+                    Countries
+                  </Button>
                 </Link>
                 <Link to="/favorites">
-                  <Button variant="contained">Favorites</Button>
+                  <Button className="navBtn rounded-pill" variant="contained">
+                    Favorites
+                  </Button>
                 </Link>
-                <Button className="rounded-pill" onClick={logout}>
+                <Button className="rounded-pill navBtn" onClick={logout}>
                   Logout
                 </Button>
               </Nav>

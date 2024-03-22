@@ -123,3 +123,7 @@
   visibility: visible;
   opacity: 1;
 }
+.navBtn {
+  font-size: 17px;
+  font-weight: 600;
+}

@@ -7,7 +7,11 @@ import { auth, logInWithEmailAndPassword } from "../auth/firebase";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [useDemo, setUseDemo] = useState(true);
   const [user, loading] = useAuthState(auth);
+  console.log("useDemo", useDemo);
+  console.log("password", password);
+
   const navigate = useNavigate();
   user && console.log("user", user.uid);
 
@@ -16,14 +20,45 @@ const Login = () => {
     if (user) navigate("/countries");
   }, [user, loading, navigate]);
 
+  function handleDemo() {
+    if (useDemo) {
+      setEmail("guest@test.com");
+      setPassword("test123");
+      setUseDemo(false);
+    } else {
+      setUseDemo(true);
+      setEmail("");
+      setPassword("");
+    }
+  }
+
   return (
     <div className="back-img">
       <div className="main-box shadow">
         <div className="blur-box">
           <div
             className="d-flex flex-column gap-2"
-            style={{ maxWidth: "200px" }}
+            style={{ maxWidth: "250px" }}
           >
+            <h1 style={{ textAlign: "center" }}>Login</h1>
+            <div className="border border-white border-2 rounded p-1">
+              <span
+                style={{
+                  color: "#606060",
+                  fontStyle: "italic",
+                  marginRight: "10px",
+                }}
+              >
+                Enter your login credentials or use Demo account
+              </span>
+              <Button
+                variant="contained"
+                className="d-inline-block rounded-pill btn-outline-secondary btn-sm"
+                onClick={handleDemo}
+              >
+                Use demo
+              </Button>
+            </div>
             <input
               type="text"
               value={email}
@@ -38,12 +73,9 @@ const Login = () => {
               placeholder="Password"
               className="rounded-pill p-2"
             />
-            <div>
-              For test purposes you can use e-mail: guest@test.com password:
-              test123
-            </div>
+
             <Button
-              className="rounded-pill"
+              className="rounded-pill mt-3"
               onClick={() => logInWithEmailAndPassword(email, password)}
             >
               Login
@@ -51,7 +83,9 @@ const Login = () => {
 
             <div>
               Need to register for an account?{" "}
-              <Link to="/register">Register</Link>
+              <Link to="/register">
+                <strong>Register</strong>
+              </Link>
             </div>
           </div>
         </div>
