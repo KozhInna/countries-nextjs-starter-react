@@ -11,9 +11,8 @@ import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 
 const Header = () => {
   const [user] = useAuthState(auth);
-  console.log("user", user);
+
   const [userName, setUserName] = useState("");
-  console.log("name", userName);
 
   useEffect(() => {
     setUserName("");
@@ -21,7 +20,7 @@ const Header = () => {
       if (user) {
         const uid = user.uid;
         const userData = await getUserData(uid);
-        console.log("userData", userData);
+
         if (userData) {
           setUserName(userData);
         } else {

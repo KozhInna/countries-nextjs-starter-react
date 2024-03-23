@@ -16,12 +16,11 @@ export default function GetMap() {
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API;
   const mapId = import.meta.env.VITE_MAP_ID;
   const [open, setOpen] = useState(false);
-  console.log("country in map", country);
 
   return (
     <APIProvider apiKey={apiKey}>
-      <div style={{ height: "500px" }}>
-        <Map zoom={9} center={position} mapId={mapId}>
+      <div style={{ height: "500px", width: "100%" }}>
+        <Map defaultZoom={9} center={position} mapId={mapId}>
           <AdvancedMarker
             position={position}
             onClick={() => setOpen(true)}

@@ -16,14 +16,11 @@ export const favoritesSlice = createSlice({
       state.favorites = action.payload;
     },
     addFavorite(state, action) {
-      console.log(state.favorites);
-      console.log(action.payload);
       if (state.favorites.some((country) => country === action.payload)) {
         return;
       }
 
       state.favorites = [...state.favorites, action.payload];
-      console.log(state.favorites);
       const user = auth.currentUser;
       if (user) addFavoriteToFirebase(user.uid, action.payload);
     },

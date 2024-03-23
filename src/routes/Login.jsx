@@ -9,11 +9,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [useDemo, setUseDemo] = useState(true);
   const [user, loading] = useAuthState(auth);
-  console.log("useDemo", useDemo);
-  console.log("password", password);
 
   const navigate = useNavigate();
-  user && console.log("user", user.uid);
 
   useEffect(() => {
     if (loading) return;

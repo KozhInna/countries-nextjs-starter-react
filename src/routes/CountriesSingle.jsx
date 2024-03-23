@@ -17,7 +17,6 @@ const CountriesSingle = () => {
   const navigate = useNavigate();
   const country = location.state.country;
   const borders = country.borders;
-  console.log("country", country);
 
   const [weather, setWeather] = useState("");
 
@@ -42,7 +41,6 @@ const CountriesSingle = () => {
     "Saturday",
   ];
   const curDayOfWeek = daysOfWeek[date.getDay()];
-  console.log(weather);
 
   const apiKey = import.meta.env.VITE_WEATHER_API;
 
@@ -65,7 +63,6 @@ const CountriesSingle = () => {
   let weatherDescription = "";
   if (weather) {
     const textWeather = weather.weather[0].description;
-    console.log(textWeather);
     weatherDescription =
       textWeather.charAt(0).toUpperCase() + textWeather.slice(1);
   }

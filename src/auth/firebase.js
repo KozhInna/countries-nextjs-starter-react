@@ -50,7 +50,6 @@ const registerWithEmailAndPassword = async (name, email, password) => {
       email,
     });
   } catch (error) {
-    console.log("here", error);
     alert(error.message);
   }
 };
@@ -59,7 +58,6 @@ export const logInWithEmailAndPassword = async (email, password) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
-    console.log("here2", err);
     alert(err.message);
   }
 };
@@ -78,7 +76,6 @@ export const getUserData = async (uid) => {
   const querySnapshot = await getDocs(q);
   let userName = null;
   querySnapshot.forEach((doc) => {
-    //console.log("res", doc.id, " => ", doc.data().name);
     userName = doc.data().name;
   });
   return userName;
@@ -94,7 +91,6 @@ export const addFavoriteToFirebase = async (uid, name) => {
 };
 
 export const removeFavoriteFromFirebase = async (uid, name) => {
-  console.log("Name: ", name);
   try {
     if (!name) {
       console.error(
