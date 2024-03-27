@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 const Home = () => {
+  const navigateTo = useNavigate();
   return (
     <div className="d-lg-flex home">
       <div className="align-self-center d-flex flex-column align-items-center justify-content-center home home-intro p-2">
@@ -23,7 +26,7 @@ const Home = () => {
           <li>www.unsplash.com</li>
         </ul>
       </div>
-      <div className="container rightBox">
+      <div className="container rightBox" onClick={() => navigateTo("/login")}>
         <div className="photo1 photoHome">
           <p className="img-description">Great Britain, London</p>
         </div>
