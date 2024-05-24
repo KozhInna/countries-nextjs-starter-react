@@ -12,9 +12,9 @@ const Home = () => {
           <li>React</li>
           <li>Redux Toolkit</li>
           <li>React Router DOM</li>
-          <li>Firebase (authentication, data storage)</li>
+          <li>Firebase (authentication, database)</li>
           <li>Bootstrap</li>
-          <li>Mui</li>
+          <li>MUI</li>
           <li>axios</li>
           <li>react-google-maps</li>
         </ul>

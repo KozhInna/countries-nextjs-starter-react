@@ -9,9 +9,10 @@ Built with:
 - HTML
 - CSS
 - Bootstrap
+- MUI
 - React
-- React Toolkit
-- Firebase
+- Redux Toolkit
+- Firebase (authentication, database)
 - React Google Maps
 
 ## Sources
